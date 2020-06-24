@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch</title>
+    <link rel="stylesheet" href="feather_icon/feather-icons-web/feather.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Righteous', cursive;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .box {
+            width: 700px;
+            height: 100px;
+            background: #2193b0;
+            /* fallback for old browsers */
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #6dd5ed, #2193b0);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-radius: 10px;
+
+        }
+
+        .box-item p {
+            text-align: center;
+            font-size: 40px;
+        }
+
+        p.item-content {
+            font-size: 20px;
+        }
+
+        .btn {
+            display: flex;
+            width: 500px;
+            justify-content: space-evenly;
+
+        }
+
+        .btn div {
+            margin-top: 50px;
+
+            border-radius: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 5px rgb(167, 167, 167);
+
+        }
+
+        .btn i {
+            font-size: 20px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .play {
+            background-color: #3d5af1;
+            color: white;
+        }
+
+        .stop {
+            background-color: #ff304f;
+            color: white;
+
+        }
+
+        .pause {
+            background-color: #f0f0f0;
+        }
+
+        @media screen and (max-width:768px) {
+            .box {
+                width: 90%;
+            }
+
+            .btn {
+
+                width: 100%;
+            }
+
+            .box-item p {
+                text-align: center;
+                font-size: 25px;
+            }
+
+            p.item-content {
+                font-size: 15px;
+            }
+
+            .btn i {
+                font-size: 15px;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                cursor: pointer;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="box-item">
+                <p id="hours">3</p>
+                <p class="item-content">hours</p>
+            </div>
+            <div class="box-item">
+                <p id="minutes">3</p>
+                <p class="item-content">minutes</p>
+            </div>
+            <div class="box-item">
+                <p id="seconds">3</p>
+                <p class="item-content">seconds</p>
+            </div>
+            <div class="box-item">
+                <p id="miliseconds">3</p>
+                <p class="item-content">miliseconds</p>
+            </div>
+        </div>
+        <div class="btn">
+            <div class="start-btn pause">
+                <i class="feather-pause btn-pause" onclick="pauseMethod();"></i>
+            </div>
+            <div class="start-btn play">
+                <i class="feather-play btn-play" onclick="playMethod();"></i>
+            </div>
+
+            <div class="start-btn stop">
+                <i class="feather-square btn-square" onclick="stopMethod();"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var start = "";
+        let hour = document.getElementById("hours");
+        let minute = document.getElementById("minutes");
+        let seconds = document.getElementById("seconds");
+        let miliseconds = document.getElementById("miliseconds");
+        let date = new Date("Sat Jun 13 2020 00:00:00 GMT+0630 (Myanmar Time)");
+        let running = false;
+        console.log(date);
+        initialState();
+
+        function startTime() {
+            date.setMilliseconds(date.getMilliseconds() + 10);
+            initialState()
+            miliseconds.innerHTML = date.getMilliseconds() / 10;
+        }
+
+        function initialState() {
+            hour.innerHTML = date.getHours();
+            minutes.innerHTML = date.getMinutes();
+            seconds.innerHTML = date.getSeconds();
+            miliseconds.innerHTML = date.getMilliseconds();
+        }
+
+        function playMethod() {
+            if (!running) {
+                start = setInterval(startTime, 10);
+            }
+            running = true;
+        }
+
+        function pauseMethod() {
+            clearInterval(start);
+            running = false;
+        }
+
+        function stopMethod() {
+            clearInterval(start);
+            date = new Date("Sat Jun 13 2020 00:00:00 GMT+0630 (Myanmar Time)");
+            initialState();
+            running = false;
+        }
+    </script>
+</body>
+
+</html>
